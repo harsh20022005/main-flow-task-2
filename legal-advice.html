@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal Advice - Get expert legal advice tailored to your specific situation.">
+    <title>Legal Advice - Legal Aid Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional CSS for Legal Advice Page */
+        /* Section Styling */
+        .service-detail {
+            padding: 60px 20px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .service-detail h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .service-detail p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #chat-box {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            height: 300px; /* Increase the height as needed */
+            overflow-y: scroll;
+            background-color: #f9f9f9;
+            margin-bottom: 1rem;
+        }
+        
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background: #e1ffc7;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background: #f1f1f1;
+            align-self: flex-start;
+        }
+
+        .user-input {
+            width: calc(100% - 90px);
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .send-button {
+            padding: 10px 20px;
+            color: #fff;
+            background: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Legal Aid Chatbot</div>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="service-detail">
+            <h2>Legal Advice</h2>
+            <p>Our legal advice service offers expert guidance tailored to your specific situation. Whether you need help with understanding your rights, drafting legal documents, or navigating through complex legal procedures, our experienced professionals are here to assist you.</p>
+            
+            <div class="chat-container">
+                <div class="chat-box" id="chat-box">
+                    <div class="messages" id="messages"></div>
+                </div>
+                <input type="text" class="user-input" id="user-input" placeholder="Type your question here..." onkeypress="handleKeyPress(event)">
+                <button class="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Legal Aid Chatbot. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const responses = {
+            "default": "I'm sorry, I don't have the answer to that. Please contact our support for more help.",
+            "how to file for divorce": "To file for divorce, you need to submit a divorce petition to your local court. Please visit your state's official website for detailed instructions.",
+            "what are my tenant rights": "Your tenant rights include the right to a habitable living environment, protection against unfair eviction, and the right to privacy. Please consult your local laws for more details."
+        };
+
+        function sendMessage() {
+            const userInput = document.getElementById("user-input").value.toLowerCase();
+            const messageContainer = document.getElementById("messages");
+
+            if (userInput.trim() === "") return;
+
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user-message");
+            userMessage.innerText = userInput;
+            messageContainer.appendChild(userMessage);
+
+            const botMessage = document.createElement("div");
+            botMessage.classList.add("message", "bot-message");
+            botMessage.innerText = responses[userInput] || responses["default"];
+            messageContainer.appendChild(botMessage);
+
+            document.getElementById("user-input").value = "";
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
